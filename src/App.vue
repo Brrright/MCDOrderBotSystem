@@ -93,13 +93,13 @@ const CompleteOrder = computed(() => orderStore.getCompleteOrders);
 // });
 
 watch(
-  //source, callback, [options]
+  // source, callback, [options]
   // options got "deep", "immediate", "flush"
   // {flush: 'post'} is used when need to handle the updated's DOM
   () => orderStore.orderList,
   (orders: Order[]) => { // callback function, receive order list
     processOrder();
-    console.log(orders);
+    // console.log(orders);
   },
   { deep: true, immediate: true } 
 );
@@ -108,7 +108,7 @@ watch(
   () => botStore.botList, //source
   (bots: Bot[]) => { //callback
     processOrder();
-    console.log(bots);
+    // console.log(bots);
   },
   { deep: true, immediate: true } //[options]
 
@@ -123,12 +123,12 @@ function processOrder() {
   if (pendingOrder && availableBot) {
     const orderID = pendingOrder.orderID;
     const botID = availableBot.botID;
-    console.log("[BEFORE] " + "order:" + orderID + "bot:" + botID);
+    // console.log("[BEFORE] " + "order:" + orderID + "bot:" + botID);
     const constructTimer = setTimeout(() => {
       botStore.resetBot(botID);
       orderStore.updateOrderStatus(orderID, "complete");
     }, 10000);
-    console.log("[PROCESSING] " + "order:" + orderID + "bot:" + botID);
+    // console.log("[PROCESSING] " + "order:" + orderID + "bot:" + botID);
     botStore.updateBotToWork(botID, orderID, constructTimer);
     orderStore.updateOrderStatus(orderID, "processing");
     return;
